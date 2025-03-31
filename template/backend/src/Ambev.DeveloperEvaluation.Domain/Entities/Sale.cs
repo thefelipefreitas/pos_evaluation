@@ -1,9 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using Ambev.DeveloperEvaluation.Domain.Common;
 
+namespace Ambev.DeveloperEvaluation.Domain.Entities;
+
 public class Sale : BaseEntity
-{    
-    public DateTime SaleDate { get; set; }
+{
+    public DateTime SaleDate { get; set; } = DateTime.UtcNow;
 
     public int CustomerId { get; set; }
 

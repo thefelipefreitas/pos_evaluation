@@ -41,7 +41,7 @@ public class UserRepository : IUserRepository
     /// <returns>The user if found, null otherwise</returns>
     public async Task<User?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        return await _context.Users.FirstOrDefaultAsync(o=> o.Id == id, cancellationToken);
+        return await _context.Users.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
     }
 
     /// <summary>
@@ -50,10 +50,12 @@ public class UserRepository : IUserRepository
     /// <param name="email">The email address to search for</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>The user if found, null otherwise</returns>
-    public async Task<User?> GetByEmailAsync(string email, CancellationToken cancellationToken = default)
+    public async Task<User?> GetByEmailAsync(
+        string email,
+        CancellationToken cancellationToken = default
+    )
     {
-        return await _context.Users
-            .FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
+        return await _context.Users.FirstOrDefaultAsync(u => u.Email == email, cancellationToken);
     }
 
     /// <summary>
