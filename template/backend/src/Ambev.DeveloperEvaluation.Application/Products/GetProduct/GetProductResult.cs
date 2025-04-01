@@ -30,12 +30,12 @@ public class GetProductResult
     /// <summary>
     /// The product's category
     /// </summary>
-    public string Category { get; set; } = string.Empty;   
+    public string Category { get; set; } = string.Empty;
 
     /// <summary>
     /// The product's image
     /// </summary>
-    public string Image { get; set; } = string.Empty;   
+    public string Image { get; set; } = string.Empty;
 
     /// <summary>
     /// The product's rating

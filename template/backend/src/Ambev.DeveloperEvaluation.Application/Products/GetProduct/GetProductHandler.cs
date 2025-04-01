@@ -1,7 +1,7 @@
-using AutoMapper;
-using MediatR;
-using FluentValidation;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
+using AutoMapper;
+using FluentValidation;
+using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct;
 
@@ -19,9 +19,7 @@ public class GetProductHandler : IRequestHandler<GetProductCommand, GetProductRe
     /// <param name="productRepository">The product repository</param>
     /// <param name="mapper">The AutoMapper instance</param>
     /// <param name="validator">The validator for GetProductCommand</param>
-    public GetProductHandler(
-        IProductRepository productRepository,
-        IMapper mapper)
+    public GetProductHandler(IProductRepository productRepository, IMapper mapper)
     {
         _productRepository = productRepository;
         _mapper = mapper;
@@ -33,7 +31,10 @@ public class GetProductHandler : IRequestHandler<GetProductCommand, GetProductRe
     /// <param name="request">The GetProduct command</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>The product details if found</returns>
-    public async Task<GetProductResult> Handle(GetProductCommand request, CancellationToken cancellationToken)
+    public async Task<GetProductResult> Handle(
+        GetProductCommand request,
+        CancellationToken cancellationToken
+    )
     {
         var validator = new GetProductValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
@@ -41,9 +42,9 @@ public class GetProductHandler : IRequestHandler<GetProductCommand, GetProductRe
         if (!validationResult.IsValid)
             throw new ValidationException(validationResult.Errors);
 
-        var product = await _productRepository.GetByIdAsync(request.Id, cancellationToken);
-        if (product == null)
-            throw new KeyNotFoundException($"Product with ID {request.Id} not found");
+        var product =
+            await _productRepository.GetByIdAsync(request.Id, cancellationToken)
+            ?? throw new KeyNotFoundException($"Product with ID {request.Id} not found");
 
         return _mapper.Map<GetProductResult>(product);
     }

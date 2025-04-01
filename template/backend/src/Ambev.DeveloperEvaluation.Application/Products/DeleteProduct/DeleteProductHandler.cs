@@ -1,6 +1,6 @@
-using MediatR;
-using FluentValidation;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
+using FluentValidation;
+using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.DeleteProduct;
 
@@ -27,7 +27,10 @@ public class DeleteProductHandler : IRequestHandler<DeleteProductCommand, Delete
     /// <param name="request">The DeleteProduct command</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>The result of the delete operation</returns>
-    public async Task<DeleteProductResponse> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+    public async Task<DeleteProductResponse> Handle(
+        DeleteProductCommand request,
+        CancellationToken cancellationToken
+    )
     {
         var validator = new DeleteProductValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
