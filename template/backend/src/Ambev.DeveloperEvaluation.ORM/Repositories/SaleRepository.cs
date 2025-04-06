@@ -6,9 +6,9 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories;
 
 public class SaleRepository : ISaleRepository
 {
-    private readonly SalesDbContext _context;
+    private readonly DefaultContext _context;
 
-    public SaleRepository(SalesDbContext context)
+    public SaleRepository(DefaultContext context)
     {
         _context = context;
     }
@@ -23,16 +23,18 @@ public class SaleRepository : ISaleRepository
         return await _context.Sales.Include(s => s.Items).FirstOrDefaultAsync(s => s.Id == id);
     }
 
-    public async Task AddAsync(Sale sale)
+    public async Task<Sale> AddAsync(Sale sale)
     {
         _context.Sales.Add(sale);
         await _context.SaveChangesAsync();
+        return sale;
     }
 
-    public async Task UpdateAsync(Sale sale)
+    public async Task<Sale> UpdateAsync(Sale sale)
     {
         _context.Sales.Update(sale);
         await _context.SaveChangesAsync();
+        return sale;
     }
 
     public async Task DeleteAsync(Guid id)
@@ -43,20 +45,5 @@ public class SaleRepository : ISaleRepository
             _context.Sales.Remove(sale);
             await _context.SaveChangesAsync();
         }
-    }
-
-    Task<Sale> ISaleRepository.AddAsync(Sale sale)
-    {
-        throw new NotImplementedException();
-    }
-
-    Task<Sale> ISaleRepository.UpdateAsync(Sale sale)
-    {
-        throw new NotImplementedException();
-    }
-
-    Task<bool> ISaleRepository.DeleteAsync(Guid id)
-    {
-        throw new NotImplementedException();
     }
 }
