@@ -12,5 +12,5 @@ public interface ISaleRepository
 
     Task<Sale> UpdateAsync(Sale sale);
 
-    Task<bool> DeleteAsync(Guid id);
+    Task DeleteAsync(Guid id);
 }
