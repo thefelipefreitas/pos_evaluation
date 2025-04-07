@@ -1,7 +1,7 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER app
-WORKDIR /app
+# USER app
+# WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
@@ -26,4 +26,5 @@ RUN dotnet publish "./Ambev.DeveloperEvaluation.WebApi.csproj" -c $BUILD_CONFIGU
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Ambev.DeveloperEvaluation.WebApi.dll"]
+# ENTRYPOINT ["dotnet", "Ambev.DeveloperEvaluation.WebApi.dll"]
+ENTRYPOINT ["dotnet", "Ambev.DeveloperEvaluation.WebApi.dll", "--urls", "http://0.0.0.0:8080"]
